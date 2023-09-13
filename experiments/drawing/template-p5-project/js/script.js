@@ -20,12 +20,28 @@ function preload() {
  * Description of setup
 */
 function setup() {
-    createCanvas(200, 200);
+    createCanvas(500, 500);
 
-    background(200, 200, 200);
+  
+    background(240, 239, 168);
 
-    rectMode(CENTER)
-    rect(100, 100, 100, 100);
+
+//Draw alien head
+    fill(255, 1, 200)
+    noStroke()
+    ellipseMode(CENTER)
+    ellipse(250, 130, 100, 150)
+
+    fill(0)
+    ellipse(213, 130, 10, 10)
+    ellipse(287, 130, 10, 10)
+
+    arc(250, 160, 40, 40, 0, PI)
+
+    strokeWeight(10)
+    line(250, 230, 290, 110)
+    
+
 
 }
 
