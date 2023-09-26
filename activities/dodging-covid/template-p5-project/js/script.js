@@ -27,6 +27,8 @@ let player = {
     fill: 255
 };
 
+let staticAmount = 1000;
+
 
 function setup() {
 // creating canvas and setting spawning conditions for objects
@@ -39,6 +41,13 @@ function setup() {
 
 function draw() {
     background(0);
+
+    for (let i = 0; i < staticAmount; i++) {
+        let x = random(0, width);
+        let y = random(0, height);
+        stroke(255);
+        point(x, y);
+     }
 
 // adds velocity to movement (don't really need it for y but its a good thing to have)
     covid19.x = covid19.x + covid19.vx;
@@ -55,6 +64,7 @@ function draw() {
 
 // create local distance variable, don't need it later on
     let distance = dist(player.x, player.y, covid19.x, covid19.y);
+
     if (distance < player.size/2 + covid19.size/2) {
         noLoop();
     }
