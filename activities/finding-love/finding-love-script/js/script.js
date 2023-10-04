@@ -28,22 +28,25 @@ let another = {
 
 let state = `title` //starts simulation on title
 
+
+
+
 function setup() {
     createCanvas(500, 500);
 
     //position lovers and generate random velocities 
     theLover.x = width/3;
     another.x = 2 * width / 3;
-
-    theLover.vx = random(-theLover.speed, theLover.speed);
-    theLover.vy = random(-theLover.speed, theLover.speed);
-    another.vx = random(-another.speed, another.speed);
-    another.vy = random(-another.speed, another.speed);
+    
 }
+
+
 
 
 function draw() {
     background(0);
+
+    uncertainMove();
 
     if (state === `title`){
         title();
@@ -57,9 +60,18 @@ function draw() {
     else if (state === `sadness`) {
         sadness();
     }
+    else if (state === `confusion`){
+        confusion();
+    }
 
+    console.log(state)
 
 }
+
+
+
+
+
 
 function title() {
     // push and pop keep fill color only to text
@@ -89,6 +101,14 @@ function sadness(){
     pop();
 }     
 
+function confusion(){
+    push();
+    textSize(45);
+    fill(255, 0, 120);
+    textAlign(CENTER, CENTER);
+    text(`Dude, come back`, width/2, height/2);
+    pop();
+}
 
 function simulation(){
     move();
@@ -99,9 +119,9 @@ function simulation(){
 }
 
 function move(){
-        // set random velocities to movement
-        theLover.x = theLover.x + theLover.vx;
-        theLover.y = theLover.y + theLover.vy;
+        // set random velocities to movement and set mouse to movement for player
+        theLover.x = mouseX + theLover.vx;
+        theLover.y = mouseY + theLover.vy;
     
         another.x = another.x + another.vx;
         another.y = another.y + another.vy;
@@ -109,10 +129,12 @@ function move(){
 
 function checkOffScreen(){
         //checks if gone off screen
-        if (theLover.x < 0 || theLover.x > width || theLover.y < 0 || theLover.y > height || another.x < 0 || another.x > width || another.y < 0 || another.y > height) {
-            state = `sadness`;
+        if (another.x < 0 || another.x > width || another.y < 0 || another.y > height) {
+            state = `sadness`;}
+        else if (theLover.x < 0 || theLover.x > width || theLover.y < 0 || theLover.y > height){
+            state = `confusion`;}
         }
-}
+        
 
 function checkOverlap(){
       //checks if circles touched
@@ -130,6 +152,14 @@ function spawnLovers(){
 function mousePressed(){
     if (state === `title`) {
         state = `simulation`
+    }
+}
+
+function uncertainMove(){
+    let change = random(); 
+    if (change < 0.04){
+        another.vx = random(-another.speed, another.speed);
+        another.vy = random(-another.speed, another.speed);
     }
 }
 
