@@ -48,6 +48,7 @@ function draw() {
 
     uncertainMove();
 
+    //describes what happens when the state changes
     if (state === `title`){
         title();
     }
@@ -84,11 +85,12 @@ function title() {
 }
 
 function loveFound(){
+    //the true hard part about love
     push();
     textSize(45);
     fill(130, 0, 80);
     textAlign(CENTER, CENTER);
-    text(`You made it. Now keep it.`, width/2, height/2);
+    text(`You found it. Now keep it.`, width/2, height/2);
     pop();
 }     
 
@@ -102,6 +104,7 @@ function sadness(){
 }     
 
 function confusion(){
+    //extra state for when you get cold feet
     push();
     textSize(45);
     fill(255, 0, 120);
@@ -150,11 +153,13 @@ function spawnLovers(){
 }
 
 function mousePressed(){
+    //begins game with a mouse press
     if (state === `title`) {
         state = `simulation`
     }
 }
 
+// uses a random value for velocity and sets probibility of a change of randomness to 4%
 function uncertainMove(){
     let change = random(); 
     if (change < 0.04){
