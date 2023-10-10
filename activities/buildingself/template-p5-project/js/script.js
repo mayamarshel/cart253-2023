@@ -4,6 +4,12 @@
  * 
  * This is a template. You must fill in the title, author, 
  * and this description to match your project!
+ * 
+ * 
+ * just finished making loop to generate 20 circles at a time
+ * need to figure out how to color background without it going in front of the circles
+ * need to add random automated movement to the circes
+ * 
  */
 
 
@@ -23,10 +29,12 @@ let stranger = {
     color: 255,
     vx: 2,
     vy: 2, 
-    speed: 2
+    speed: 2,
+    number: 0,
+    total: 20
 }
 
-
+let circleNum = stranger.number
 
 function preload(){}
 
@@ -36,7 +44,7 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
 
     player.x = width/2
-
+    
 }
 
 
@@ -44,17 +52,26 @@ function setup() {
 
 
 function draw() {
-    background(0);
-
-    move();
-
-    ellipse(mouseX, mouseY, player.size);
-    ellipse(stranger.x, stranger.y, stranger.size);
-
     
+    move();
+    checkOverlap();
+    uncertainMove(); 
+    
+    ellipse(mouseX, mouseY, player.size);
+    // ellipse(stranger.x, stranger.y, stranger.size);
+    
+   // background(0);
 
-    console.log()
+   while (circleNum < stranger.total){
+    randomCircle();
+    circleNum = circleNum + 1
+    console.log(circleNum)
 }
+
+
+
+}
+
 
 
 
@@ -64,11 +81,12 @@ function draw() {
 
 function checkOverlap(){
     //checks if circles touched
-    let d = dist(player.x, player.y, stranger.x, stranger.y);
+    let d = dist(player.x, player.y, stranger.x, stranger.y);}
     if (d < player.size/2 + stranger.size/2){
-        console.log('they overlap');
+        noLoop();
     }
-}
+        //ADD CODE to add circle of specified color to Player
+
 
 // uses a random value for velocity and sets probibility of a change of randomness to 4%
 function uncertainMove(){
@@ -100,3 +118,17 @@ function checkOffScreen(){
         stranger.x = stranger.x + stranger.vx;
         stranger.y = stranger.y + stranger.vy;
 }
+
+
+
+
+function randomCircle(){
+    //maybe change 0 to stranger lowest position
+    stranger.x = random(0, width);
+    stranger.y = random(0, height);
+    stranger.size = random(0, stranger.size);
+
+    fill(255);  
+    ellipse(stranger.x, stranger.y, stranger.size); 
+}
+
