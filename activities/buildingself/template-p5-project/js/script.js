@@ -8,7 +8,7 @@
  * 
  * just finished making loop to generate 20 circles at a time
  * need to figure out how to color background without it going in front of the circles
- * need to add random automated movement to the circes
+ * need to add random   automated movement to the circes
  * 
  */
 
@@ -44,29 +44,27 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
 
     player.x = width/2
-    
+
 }
 
 
-
-
-
 function draw() {
+    background(0);
     
     move();
     checkOverlap();
     uncertainMove(); 
     
-    ellipse(mouseX, mouseY, player.size);
-    // ellipse(stranger.x, stranger.y, stranger.size);
+  //  while (circleNum < stranger.total){
+   //     randomCircle();
+   //     circleNum = circleNum + 1
+   //     console.log(circleNum);
     
-   // background(0);
+    }
 
-   while (circleNum < stranger.total){
-    randomCircle();
-    circleNum = circleNum + 1
-    console.log(circleNum)
-}
+    ellipse(mouseX, mouseY, player.size);
+    ellipse(stranger.x, stranger.y, stranger.size);
+    
 
 
 
@@ -90,7 +88,7 @@ function checkOverlap(){
 
 // uses a random value for velocity and sets probibility of a change of randomness to 4%
 function uncertainMove(){
-    let change = random(); 
+    let change = random(0, 1); 
     if (change < 0.04){
         stranger.vx = random(-stranger.speed, stranger.speed);
         stranger.vy = random(-stranger.speed, stranger.speed);
@@ -126,9 +124,10 @@ function randomCircle(){
     //maybe change 0 to stranger lowest position
     stranger.x = random(0, width);
     stranger.y = random(0, height);
-    stranger.size = random(0, stranger.size);
-
-    fill(255);  
-    ellipse(stranger.x, stranger.y, stranger.size); 
+    stranger.size = random(10, stranger.size);
 }
+
+// ADD CODE constrain for the sides of the canvas --
+// stranger.x = constrain(stranger.x, 0, width)
+
 
