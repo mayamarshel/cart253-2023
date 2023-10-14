@@ -58,7 +58,7 @@ function draw() {
   //  while (circleNum < stranger.total){
    //     randomCircle();
    //     circleNum = circleNum + 1
-  //      console.log(circleNum);
+   //     console.log(circleNum);
     
     }
 

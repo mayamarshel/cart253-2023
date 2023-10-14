@@ -24,50 +24,41 @@ let circle = {
     colorB: 0
 }
 
+let mousePressed() = false
 
 function setup(){
     createCanvas(400, 400);
 
-    randomColor()
-    randomPos()
-    randomVel()
+    ranSize()
+
 
 }
 
 function draw() {
-    background(0)
 
-   // checkOffScreen()
+    ellipse(circle.x, circle.y, circle.size)
 
-    fill(circle.colorR, circle.colorB, circle.colorB) 
+    if (mousePressed === true){
+        remakeCircle()
+    }
+}
 
-    circle.x = circle.x + circle.vx
-    circle.y = circle.y + circle.vy
 
-    ellipse(circle.x, circle.y, circle.size);
-    console.log('the R value is' + circle.colorR)
-
-    if (circle.x < 0 || circle.x > width || circle.y < 0 || circle.y > height) {
-        remove(circle);
-        circle.colorR = random(0,255)
-        //randomColor();
-       // randomPos()
-       // randomVel()
-        //ellipse(circle.x, circle.y, circle.size);
-        }
-   // else if (theLover.x < 0 || theLover.x > width || theLover.y < 0 || theLover.y > height){
-        }
-    
     
     
 
 
-checkOffScreen()
+
 
 
 
 
 // OTHER FUNCTIONS
+
+function remakeCircle(){
+    ranSize()
+    ellipse(circle.x, circle.y, circle.size)
+}
 
 function randomColor(){
     circle.colorR = random(0, 255)
@@ -98,6 +89,9 @@ function checkOffScreen(){
         }
     //}
 
+function ranSize(){
+    circle.size = random(10, 100);
+}
 
 
 
