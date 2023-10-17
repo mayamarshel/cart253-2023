@@ -30,26 +30,41 @@ let player = {
 }
 
 let redColor = {
+    size: 50,
     R: 255,
     G: 0,
-    B: 0
+    B: 0,
+    x: 100,
+    y: 400
 }
 
 let greenColor = {
+    size: 50,
     R: 0,
     G: 255,
-    B: 0
+    B: 0,
+    x: 350,
+    y: 400
 }
 
 let blueColor = {
+    size: 50,
     R: 0,
     G: 0,
-    B: 255
+    B: 255,
+    x: 600,
+    y: 400
 }
 
 let finish = 600
-let state = 'chooseCharacter'
+let state = 'title'
+let startGame = false
+let toiletPic;
 
+
+function preload(){
+    toiletPic = loadImage("assets/images/toiletpicture1.png");
+}
 
 function setup(){
     
@@ -58,31 +73,41 @@ function setup(){
     stroke(255)
     line(200, 0, 200, 500)
 
-   // textSize(50);
-
-    
     
 }
+
+
 
 
 function draw() {
     background(0);
     randSpeed();
-
-
-
-   // raceScreen();
-
-    if (state === `chooseCharacter`){
-        chooseCharacter();
+    
+    
+    if (state === `spawnChoices`){
+        spawnChoices();
     }
-    else if (state === `raceScreen`){
-        raceScreen();
+        else if (state === `raceScreen`){
+            raceScreen();}
+        else if (state === 'title') {
+            title();
+        }
+        
+        console.log(player.R, player.G, player.B)
+        
+}
     
-}
-}
+    
 
-    
+
+
+
+
+
+
+
+
+
 
 
 
@@ -99,15 +124,17 @@ function mousePressed(){
 
 // assigns random speed to Op circle
 function randSpeed(){
+    
     op.x = op.x + op.vx
     op.vx = random(0, op.speed)
 }
 
 
-// ends game when player or op reach finish line 
+// ends game when player or op reach finish line and displays finished statements
 function finishLine(){
     if(player.x >= finish){
         console.log('you won')
+        background(0)
         youWin();
         noLoop();
     }
@@ -119,33 +146,66 @@ function finishLine(){
     }
 }
 
-
-if (state === 'chooseCharacter'){
-    chooseCharacter()
+//makes choose character label into actually choose character screen 
+if (state === 'title'){
+    title()
 }
 
 
 function keyPressed(){
-    //begins game with a mouse press
-    if (state === `chooseCharacter`) {
-        state = `raceScreen`
+    //begins game with a key press
+    if (state === `title`) {
+        state = `spawnChoices`
+    }
+    else if (state === 'spawnChoices'){
+        state = 'raceScreen'
     }
 }
 
+//declares movement for player and op
 function move(){
-    op.x = op.x + op.vx
-    player.x = player.x + player.vx 
+    if (startGame === true){
+     op.x = op.x + op.vx
+     player.x = player.x + player.vx }
 }
+
+
+function spawnCharacters(){
+    //spawns characters in 
+
+    fill(player.R, player.G, player.B);
+    ellipse(player.x, player.y, player.size);
+
+    fill(255);
+    ellipse(op.x, op.y, op.size);
+}
+
+
+
+
+
+
+
 
 // SCREENS 
 
-function chooseCharacter(){
+function title(){
+    state = 'title'
+    
     push();
-    textSize(45);
+    textSize(55);
     fill(20, 0, 170);
     textAlign(CENTER, CENTER);
-    text(`race to the bathroom`, width/2, height/2);
+    text(`race to the bathroom`, 350, 250);
     pop();
+
+    push();
+    textSize(30);
+    fill(20, 0, 170);
+    textAlign(CENTER, CENTER);
+    text(`press S to choose character`, 350, 350);
+    pop();
+
 }   
 
 function youWin(){
@@ -168,27 +228,84 @@ function youLose(){
     pop();
 }   
 
+
 function raceScreen() {
+    //screen for actual gameplay
     state = 'raceScreen'
-    fill(200, 200, 5);
+
+    image(toiletPic, 100, 100)
 
     spawnCharacters();
     move()
-    finishLine();
+    finishLine();}
 
+
+
+function spawnChoices(){
+    state = 'spawnChoices'
+    
+    textSize(30);
+    fill(20, 0, 170);
+    textAlign(CENTER, CENTER);
+//ADD CODE make game start when player clicks
+//ADD COMMENT to tell player to click space to start
+    text('choose your character- game will begin immediately', width/2, height/2);
+
+//creates red green and blue character examples  
+//RED
+    fill(redColor.R, redColor.G, redColor.B)
+    ellipse(redColor.x, redColor.y, redColor.size)
+    
+    fill(255)
+    text('1', redColor.x, redColor.y)
+    textSize(30)
+
+//GREEN
+    fill(greenColor.R, greenColor.G, greenColor.B)
+    ellipse(greenColor.x, greenColor.y, greenColor.size)
+    
+    fill(255)
+    text('2', greenColor.x, greenColor.y)
+    textSize(30)
+
+//BLUE
+    fill(blueColor.R, blueColor.G, blueColor.B)
+    ellipse(blueColor.x, blueColor.y, blueColor.size)
+    
+    fill(255)
+    text('3', blueColor.x, blueColor.y)
+    textSize(30)
 }
 
 
 
-function spawnCharacters(){
+function keyPressed(){
+    if(keyCode === 49){
+        player.R = 255
+        player.G = 0
+        player.B = 0
+//ADD CODE to signal that a choice has been made
+    }
+    else if(keyCode === 50){
+        player.R = 0
+        player.G = 255
+        player.B = 0
+    }
+    else if(keyCode === 51){
+        player.R = 0
+        player.G = 0
+        player.B = 255
+    }
+//starts game from title screen by pressing S
+    else if (state === `title` && keyCode === 83) {
+        state = `spawnChoices`
+    }
+//starts game from pick character screen by pressing space
+    else if (state === 'spawnChoices' && keyCode === 32){
+        state = 'raceScreen'
+    }
 
-    ellipse(player.x, player.y, player.size);
-    ellipse(op.x, op.y, op.size);
 }
-
-
-
-
 
 
 
