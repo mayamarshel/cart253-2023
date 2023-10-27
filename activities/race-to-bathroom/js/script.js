@@ -73,9 +73,6 @@ function setup(){
     stroke(255);
 
     
-  
-
-    
 };
 
 
@@ -92,11 +89,6 @@ function draw() {
 };
     
     
-
-
-
-
-
 
 
 
@@ -160,9 +152,6 @@ function spawnCharacters(){
     ellipse(op.x, op.y, op.size);
 };
 
-// moves circle forward by player speed when mouse pressed
-
-
 
 //sets stroke to color of choice to show that your choice was logged
 function selectVerification(){
@@ -174,6 +163,92 @@ else if(player.R === 0 && player.B === 0 && player.G === 255){
     stroke(0, 255, 0)
 }
 };
+    
+
+// sets speed of player when game actually begins (needed to debug because player could move the character without the race starting)
+function mousePressed(){
+    if(state === 'raceScreen' && startKey === true)
+        player.x = player.x + player.speed;
+        console.log('mouse was pressed');
+};
+
+// starts game functions
+function startGame(){
+        move();
+        finishLine();
+        randSpeed();
+};
+
+
+function spawnChoices(){
+    state = 'spawnChoices';
+    
+    textSize(30);
+    fill(20, 0, 170);
+    textAlign(CENTER, CENTER);
+    text('choose your character- press space to start', width/2, height/2);
+
+//creates red green and blue character examples  
+//RED
+    fill(redColor.R, redColor.G, redColor.B);
+    ellipse(redColor.x, redColor.y, redColor.size);
+    
+    fill(255);
+    text('1', redColor.x, redColor.y);
+    textSize(30);
+
+//GREEN
+    fill(greenColor.R, greenColor.G, greenColor.B);
+    ellipse(greenColor.x, greenColor.y, greenColor.size);
+    
+    fill(255);
+    text('2', greenColor.x, greenColor.y);
+    textSize(30);
+
+//BLUE
+    fill(blueColor.R, blueColor.G, blueColor.B);
+    ellipse(blueColor.x, blueColor.y, blueColor.size);
+    
+    fill(255);
+    text('3', blueColor.x, blueColor.y);
+    textSize(30);
+}
+
+
+
+//sets player color based on key selection (1, 2, or 3)
+function keyPressed(){
+//key 1
+    if(keyCode === 49){
+        player.R = 255
+        player.G = 0
+        player.B = 0
+    }
+//key 2
+    else if(keyCode === 50){
+        player.R = 0
+        player.G = 255
+        player.B = 0
+    }
+//key 3
+    else if(keyCode === 51){
+        player.R = 0
+        player.G = 0
+        player.B = 255
+    }
+//starts game from title screen by pressing S
+    else if (state === `title` && keyCode === 83) {
+        state = `spawnChoices`
+    }
+//starts game from pick character screen by pressing space
+    else if (state === 'spawnChoices' && keyCode === 32){
+        state = 'raceScreen'}
+//starts game when D key is pressed
+    else if (state === 'raceScreen' && keyCode === 68){
+        startKey = true
+    };
+};
+
 
 
 
@@ -241,92 +316,5 @@ function raceScreen() {
     if(startKey === true){
         startGame();
     }
-        
-    
-    
     
 }
-    
-
-function mousePressed(){
-    if(state === 'raceScreen' && startKey === true)
-        player.x = player.x + player.speed;
-        console.log('mouse was pressed');
-};
-
-function startGame(){
-        move();
-        finishLine();
-        randSpeed();
-       
-    
-}
-
-
-function spawnChoices(){
-    state = 'spawnChoices';
-    
-    textSize(30);
-    fill(20, 0, 170);
-    textAlign(CENTER, CENTER);
-    text('choose your character- press space to start', width/2, height/2);
-
-//creates red green and blue character examples  
-//RED
-    fill(redColor.R, redColor.G, redColor.B);
-    ellipse(redColor.x, redColor.y, redColor.size);
-    
-    fill(255);
-    text('1', redColor.x, redColor.y);
-    textSize(30);
-
-//GREEN
-    fill(greenColor.R, greenColor.G, greenColor.B);
-    ellipse(greenColor.x, greenColor.y, greenColor.size);
-    
-    fill(255);
-    text('2', greenColor.x, greenColor.y);
-    textSize(30);
-
-//BLUE
-    fill(blueColor.R, blueColor.G, blueColor.B);
-    ellipse(blueColor.x, blueColor.y, blueColor.size);
-    
-    fill(255);
-    text('3', blueColor.x, blueColor.y);
-    textSize(30);
-}
-
-
-//sets player color based on key selection (1, 2, or 3)
-function keyPressed(){
-//key 1
-    if(keyCode === 49){
-        player.R = 255
-        player.G = 0
-        player.B = 0
-    }
-//key 2
-    else if(keyCode === 50){
-        player.R = 0
-        player.G = 255
-        player.B = 0
-    }
-//key 3
-    else if(keyCode === 51){
-        player.R = 0
-        player.G = 0
-        player.B = 255
-    }
-//starts game from title screen by pressing S
-    else if (state === `title` && keyCode === 83) {
-        state = `spawnChoices`
-    }
-//starts game from pick character screen by pressing space
-    else if (state === 'spawnChoices' && keyCode === 32){
-        state = 'raceScreen'}
-//starts game when D key is pressed
-    else if (state === 'raceScreen' && keyCode === 68){
-        startKey = true
-    };
-};
