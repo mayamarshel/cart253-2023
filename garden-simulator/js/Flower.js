@@ -5,6 +5,8 @@ class Flower {
     constructor() {
         //'this' refers to the object that will be created with the class
         //this.propertytobechanged = value/way to change property
+
+        //CREATE FLOWER
         this.x = random(0, width);
         this.y = random(0, height);
         this.size = 50;
@@ -29,4 +31,21 @@ class Flower {
           b: 0
         };
       }
+
+ 
+      //DISPLAY FLOWER 
+  display() {
+    push();
+    // Set the stroke weight for the petals and the stem
+    strokeWeight(this.stemThickness);
+    // Draw a line for the stem
+    stroke(this.stemColor.r, this.stemColor.g, this.stemColor.b);
+    line(this.x, this.y, this.x, this.y + this.stemLength);
+    // Draw a circle with a heavy outline for the flower
+    strokeWeight(this.petalThickness);
+    fill(this.centreColor.r, this.centreColor.g, this.centreColor.b);
+    stroke(this.petalColor.r, this.petalColor.g, this.petalColor.b);
+    ellipse(this.x, this.y, this.size);
+    pop();
+  }
 }

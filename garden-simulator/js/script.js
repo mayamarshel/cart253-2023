@@ -8,25 +8,43 @@
 
 "use strict";
 
-/**
- * Description of preload
-*/
-function preload() {
 
-}
+let garden = {
+    // array and total flower number
+  flowers: [],
+  totalFlowers: 20,
+
+  grassColor: {
+    r: 120,
+    g: 180,
+    b: 120
+  }
+};
 
 
-/**
- * Description of setup
-*/
 function setup() {
+  createCanvas(600, 600);
 
+
+  // adds new flowers up to total flower amount
+  // NEW is the word used when creating a new object from a class 
+  for (let i = 0; i < garden.totalFlowers; i++) {
+    //does let flower create a new local variable that is not confused with the flower array?
+    let flower = new Flower();
+    garden.flowers.push(flower);
+  }
 }
 
 
-/**
- * Description of draw()
-*/
+
 function draw() {
 
+    //respawns background each frame
+    background(garden.grassColor.r, garden.grassColor.g, garden.grassColor.b);
+      
+    //display each flower in the array up to the total number
+    for (let i = 0; i < garden.flowers.length; i++) {
+        let flower = garden.flowers[i];
+        flower.display(); 
+    }
 }
