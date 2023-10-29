@@ -1,12 +1,16 @@
+
+
+
 class Flower {
 
     // this is basically a function but since inside of a class we don't need to label it
     // also functions inside of classes are called methods
+    //CONSTRUCTOR method runs to initialize the features of a class when a NEW class is called 
     constructor() {
         //'this' refers to the object that will be created with the class
         //this.propertytobechanged = value/way to change property
 
-        //CREATE FLOWER
+  //CREATE FLOWER
         this.x = random(0, width);
         this.y = random(0, height);
         this.size = 50;
@@ -21,19 +25,37 @@ class Flower {
           b: 50
         };
         this.petalColor = {
-          r: 200,
-          g: 50,
-          b: 50
+          r: random(1, 255),
+          g: random(1, 255),
+          b: random(1, 255)
         };
         this.centreColor = {
-          r: 50,
-          g: 0,
-          b: 0
+          r: random(1, 255),
+          g: random(1, 255),
+          b: random(1, 255)
         };
+      
+      //sets alive variable so we can check if its dead later
+      this.alive = true;
+
       }
 
+  //creates instructions for how a flower should die
+  //creates shrink rate and decreases the flower size by shrink rate
+shrink() {
+  let shrinkage = random(0, 0.1);
+  this.petalThickness = this.petalThickness - shrinkage / 10;
+  this.size = this.size - shrinkage
+
+  //checks is flower radius is zero and sets alive to false
+if (this.petalThickness <= 0 || this.size <= 0) {
+  this.alive = false;
+}
+
+}
+
  
-      //DISPLAY FLOWER 
+//DISPLAY FLOWER 
   display() {
     push();
     // Set the stroke weight for the petals and the stem
@@ -47,5 +69,19 @@ class Flower {
     stroke(this.petalColor.r, this.petalColor.g, this.petalColor.b);
     ellipse(this.x, this.y, this.size);
     pop();
+  }
+
+  
+  //actually defines what to do when the mouse is pressed
+  mousePressed(){
+    //creates distance variable as radius of full flower top
+    let d = dist(this.x, this.y, mouseX, mouseY);
+    //if click is inside flower top increase stem length by 5 and decrease 
+    // flower position by 5
+    if (d < this.size/2 + this.petalThickness) {
+      this.stemLength = this.stemLength + 5;
+
+      this.y = this.y -5;
+    }
   }
 }
