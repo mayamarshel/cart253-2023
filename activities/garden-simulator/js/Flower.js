@@ -6,7 +6,7 @@ class Flower {
     // this is basically a function but since inside of a class we don't need to label it
     // also functions inside of classes are called methods
     //CONSTRUCTOR method runs to initialize the features of a class when a NEW class is called 
-    constructor() {
+    constructor(x, y, size, stemLength, petalColor) {
         //'this' refers to the object that will be created with the class
         //this.propertytobechanged = value/way to change property
 
@@ -14,9 +14,12 @@ class Flower {
         this.x = random(0, width);
         this.y = random(0, height);
         this.size = 50;
+        this.maxSize = 40;
         this.stemLength = 75;
         this.stemThickness = 10;
         this.petalThickness = 10;
+        this.maxPetalThickness = 10;
+        this.minSize = 1;
     
 
         this.stemColor = {
@@ -43,15 +46,31 @@ class Flower {
   //creates instructions for how a flower should die
   //creates shrink rate and decreases the flower size by shrink rate
 shrink() {
-  let shrinkage = random(0, 0.1);
+  let shrinkage = random(0, 0.5);
   this.petalThickness = this.petalThickness - shrinkage / 10;
-  this.size = this.size - shrinkage
+  this.size = this.size - shrinkage;
+
 
   //checks is flower radius is zero and sets alive to false
-if (this.petalThickness <= 0 || this.size <= 0) {
+if (this.petalThickness === this.minSize || this.size <= this.minSize) {
   this.alive = false;
+  noLoop(shrink());
+  flowerIsDead();
+
 }
 
+}
+
+
+// method is called inside of BEE class if thw two overlap
+// increases size 
+pollinate() {
+  let growth = random(0, 0.5);
+  this.petalThickness = this.petalThickness + growth / 10;
+  this.size = this.size + growth;
+
+  this.petalThickness = constrain(this.petalThickness, 0, this.maxPetalThickness);
+  this.size = constrain(this.size, 0, this.maxSize);
 }
 
  
@@ -78,10 +97,14 @@ if (this.petalThickness <= 0 || this.size <= 0) {
     let d = dist(this.x, this.y, mouseX, mouseY);
     //if click is inside flower top increase stem length by 5 and decrease 
     // flower position by 5
-    if (d < this.size/2 + this.petalThickness) {
-      this.stemLength = this.stemLength + 5;
-
-      this.y = this.y -5;
+    if (flower.alive = false) {
+      flower.display();
     }
+  }
+
+
+  flowerIsDead() {
+    this.stemThickness = 5;
+    this.petalThickness = 3;
   }
 }

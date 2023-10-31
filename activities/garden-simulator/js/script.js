@@ -1,5 +1,11 @@
+/**
+ * I Like to Move It
+ * Maya Marshel
+ * 
+ * This is a template. You must fill in the title, author, 
+ * and this description to match your project!
+ */
 
-//STOPPED AT Let the Pollination begin
 
 "use strict";
 
@@ -10,8 +16,8 @@ let garden = {
   totalFlowers: 20,
 
     // bee array and total bee number
-  bees: [],
-  totalBees: 5,
+  locusts: [],
+  totalLocusts: 5,
 
   grassColor: {
     r: 120,
@@ -34,16 +40,16 @@ function setup() {
   }
 
   //creates loop that counts to total bees wanted
-  for (let i = 0; i < garden.totalBees; i++) {
+  for (let i = 0; i < garden.totalLocusts; i++) {
     //sets x and y to random 
     let x = random(0, width);
     let y = random(0, height);
 
     //creates new local variable with class bee description inside (with x and y parameters)
-    let bee = new bee(x, y);
+    let locust = new Locust(x, y);
 
     //adds new bee to bee array
-    garden.bees.push(bee);
+    garden.locusts.push(locust);
   }
   
 }
@@ -63,23 +69,38 @@ function draw() {
         if (flower.alive) {
           flower.shrink();
           flower.display(); 
+        
     }
-}
+
+  }
+  
 
     //loop counts to the length of the bee array
-    for (let i = 0; i < garden.bees.length; i++) {
+    for (let i = 0; i < garden.locusts.length; i++) {
       //creates local variable that stores the specific bee in the array
       // i is the index value of the bee in question
-      let bee = garden.bees[i];
+      let locust = garden.locusts[i];
 
       //calls the methods if the bee is alive
-      if (bee.alive){
-        bee.shrink();
-        bee.move();
-        bee.display();
+      if (locust.alive){
+        locust.shrink();
+        locust.move();
+        
+        //bee will try and pollinate every flower
+        //j is used because i has been used as index argument in this function already
+        //calls the tryToPollinate function with flower as the argument AFTER setting the
+        //flower local variable to mean a certain index of flower inside the flower array
+        for (let j = 0; j < garden.flowers.length; j++) {
+          let flower = garden.flowers[j];
+          locust.tryToPollinate(flower);
+        }
+        
+        locust.display();
+        }
       }
     }
-}
+      
+
 
 
 function mousePressed() {
