@@ -1,7 +1,8 @@
 class Wheat {
 
-    //sets inital variables for wheat stalks
-    constructor(x, y, size, stemLength, petalColor) {
+    //sets inital variables for wheat stalks and sets state to alive
+    constructor() {
+
         this.x = random(0, width);
         this.y = random(0, height);
         this.stalkLength = 75;
@@ -9,9 +10,9 @@ class Wheat {
         this.size = 20;
 
         this.stalkColor = {
-            r: 50,
-            g: 150,
-            b: 50
+            r: 240,
+            g: 190,
+            b: 0
           };
 
 
@@ -19,21 +20,6 @@ class Wheat {
     
     }       
 
-
-    shrink() {
-        let shrinkage = random(0, 0.5);
-        this.stalkThickness = this.stalkThickness - shrinkage / 10;
-        this.stalkLength = this.stalkLength - shrinkage;
-        
-      
-      
-        //turn stalk brown and stop skrinking if it gets to the minimum sixe
-        //ADD CODE to make numbers into stalk minimum
-      if (this.stalkLength <= 10) {
-        this.alive = false;
-      }
-      
-      }
 
 
 //DISPLAY WHEAT
@@ -44,10 +30,23 @@ class Wheat {
     line(this.x, this.y, this.x, this.y + this.stalkLength);
     pop();
 
+    //wheat grains on top
     push();
     noStroke();
     fill(this.stalkColor.r, this.stalkColor.g, this.stalkColor.b);
     ellipse(this.x, this.y, this.size)
+    pop();
+
+    push();
+    noStroke();
+    fill(this.stalkColor.r, this.stalkColor.g, this.stalkColor.b);
+    ellipse(this.x, this.y - 10, this.size - 5)
+    pop();
+
+    push();
+    noStroke();
+    fill(this.stalkColor.r, this.stalkColor.g, this.stalkColor.b);
+    ellipse(this.x, this.y - 20, this.size - 7)
     pop();
   }
 

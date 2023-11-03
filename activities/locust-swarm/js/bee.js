@@ -1,6 +1,9 @@
+//ADD CODE to constrain Bee
+
 class Bee {
 
 constructor(x, y) {
+    //sets initial player controls 
     this.x = mouseX;
     this.y = mouseY;
     this.size = 40;
@@ -9,15 +12,18 @@ constructor(x, y) {
 
   }
 
-
+  // turns locust to not alive and takes locust out of array if they touch
   killLocust(locust) {
     let d = dist(this.x, this.y, locust.x, locust.y);
     if (d < this.size / 2 + locust.size / 2) {
       locust.alive = false;
       console.log('they overlap')
-    }
+      crops.locusts.splice(locust,1)
+      
+  }
   }
 
+  //draws locust
   display() {
     push();
     
@@ -30,7 +36,7 @@ constructor(x, y) {
 
        // Body
        push();
-       fill(225, 225, 50);
+       fill(225, 0, 0);
        noStroke();
        ellipse(this.x, this.y, this.size);
        pop();
