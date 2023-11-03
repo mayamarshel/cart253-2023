@@ -16,9 +16,9 @@ constructor(x, y) {
   killLocust(locust) {
     let d = dist(this.x, this.y, locust.x, locust.y);
     if (d < this.size / 2 + locust.size / 2) {
+      let indexPos = crops.locusts.indexOf(locust)
       locust.alive = false;
-      console.log('they overlap')
-      crops.locusts.splice(locust,1)
+      crops.locusts.splice(locust, indexPos)
       
   }
   }

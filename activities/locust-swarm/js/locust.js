@@ -16,10 +16,11 @@ class Locust {
       //stops displaying crops and removes from wheatArray if they touch
       killCrops(wheat) {
         let d = dist(this.x, this.y, wheat.x, wheat.y);
-        if (d < this.size / 2 + wheat.size / 2) {
+        if (d < this.size / 2 + wheat.size / 3) {
+          let indexPos = crops.wheatArray.indexOf(wheat)
           wheat.alive = false;
-          crops.wheatArray.splice(wheat,1)
-          console.log(crops.wheatArray.length)
+          crops.wheatArray.splice(wheat, indexPos)
+          console.log(crops.wheatArray)
         }
       }
 

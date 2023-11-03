@@ -1,19 +1,15 @@
 
-//working on: assigning titles to states
-//changing look of locusts and maybe wheat and bee
-//create click to play function
-
 "use strict";
 
 
 let crops = {
   // array and total wheat number
   wheatArray: [],
-  totalWheat: 35,
+  totalWheat: 20,
 
   //locust array and total
   locusts: [], 
-  totalLocusts: 20,
+  totalLocusts: 10,
 
   //background color
   grassColor: {
@@ -106,6 +102,7 @@ function gamePlay(){
          }
          //only displays locust if alive
          locust.display();
+         console.log(crops.locusts.length)
          }
        }
  
@@ -115,6 +112,7 @@ function gamePlay(){
        let wheat = crops.wheatArray[i];
        if (wheat.alive) {
          wheat.display(); 
+        
        }
    
      }  
