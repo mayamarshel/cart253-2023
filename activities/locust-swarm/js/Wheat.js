@@ -6,6 +6,7 @@ class Wheat {
         this.y = random(0, height);
         this.stalkLength = 75;
         this.stalkThickness = 10;
+        this.size = 20;
 
         this.stalkColor = {
             r: 50,
@@ -30,11 +31,6 @@ class Wheat {
         //ADD CODE to make numbers into stalk minimum
       if (this.stalkLength <= 10) {
         this.alive = false;
-        this.stalkColor = {
-            r: 100,
-            g: 100,
-            b: 20}
-        shrinkage = 0
       }
       
       }
@@ -47,6 +43,13 @@ class Wheat {
     stroke(this.stalkColor.r, this.stalkColor.g, this.stalkColor.b);
     line(this.x, this.y, this.x, this.y + this.stalkLength);
     pop();
+
+    push();
+    noStroke();
+    fill(this.stalkColor.r, this.stalkColor.g, this.stalkColor.b);
+    ellipse(this.x, this.y, this.size)
+    pop();
   }
+
 }
 
