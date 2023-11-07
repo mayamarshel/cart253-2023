@@ -48,6 +48,7 @@ function setup() {
 
 
   }
+  console.log(bee.alive)
   
 }
 

@@ -1,5 +1,3 @@
-//ADD CODE to constrain Bee
-
 class Bee {
 
 constructor(x, y) {
@@ -19,6 +17,7 @@ constructor(x, y) {
       let indexPos = crops.locusts.indexOf(locust)
       locust.alive = false;
       crops.locusts.splice(locust, indexPos)
+      console.log(crops.locusts)
       
   }
   }
