@@ -11,6 +11,7 @@ class Self {
             b: 0
           };
 
+        this.isTouching = false
         
         }
         
@@ -37,16 +38,16 @@ class Self {
 
     newSelf(size) {
         push()
-        ellipse(this.x, this.y, size + 100);
+        ellipse(this.x, this.y, size + newCircleSize);
         pop()
     }
 
 
-    displayAllCircles() {
-        //display array 
+    displayAllSelves() {
+        for (let i = 0; i < selves.length; i++){
+            ellipse(this.x, this.y, size + newCircleSize)
+        }
     }
-    }
-
     
-
+}
     
