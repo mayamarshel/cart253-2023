@@ -3,7 +3,7 @@ class Self {
         this.x = mouseX;
         this.y = mouseY;
         this.size = 40;
-        this.sizeIncrease = 3;
+        this.sizeIncrease = 20;
     
         this.color = {
             r: 40,
@@ -34,14 +34,16 @@ class Self {
         }
     }
 
-    newCircle(){
-        ellipse(this.x, this.y, this.size + this.sizeIncrease)
-        this.size = this.size + this.sizeIncrease
+
+    newSelf(size) {
+        push()
+        ellipse(this.x, this.y, size + 100);
+        pop()
     }
 
-    newSelf() {
-        ellipse(this.x, this.y, this.size + 50)
 
+    displayAllCircles() {
+        //display array 
     }
     }
 
