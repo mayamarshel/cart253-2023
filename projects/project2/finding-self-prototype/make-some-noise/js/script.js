@@ -13,19 +13,16 @@ let player = {
     size: 40
 }
 
-let stranger = {
-    x: 150,
-    y: 150,
-    size: 40
-}
+let strangers = []
+let totalStrangers = 5
 
 let isOverlapping = false
 
 function preload() {
     //preload heaven sound
-
-
-
+    
+    
+    
 }
 
 
@@ -33,8 +30,24 @@ function preload() {
 function setup() {
     createCanvas(600, 600);
     userStartAudio();
-
+    
     synth = new p5.PolySynth();
+    
+    
+    for (let i = 0; i < totalStrangers; i++) {
+        let x = random(0, width);
+        let y = random(0, height); 
+        
+        let stranger = new Stranger(x, y);
+        
+        
+
+
+        strangers.push(stranger);
+        console.log(strangers);
+
+   
+      }
 
 }
 
@@ -46,12 +59,9 @@ function draw() {
     movePlayer();
     screenChanges();
     checkOverlap();
-    
-    ellipse(stranger.x, stranger.y, stranger.size)
-    
 
     
-
+        
 
     
 }
@@ -90,8 +100,7 @@ function finalScreen(){
     textAlign(LEFT, CENTER);
     text(`here's what 
     you made`, width/2, height/2);
-    ellipse(player.x, player.y, player.size);
-
+    
     playSong();
     pop();
 }   
@@ -103,6 +112,10 @@ function start(){
     fill(20, 0, 170);
     textAlign(CENTER, CENTER);
     text(`start`, width/2, height/2);
+
+    ellipse(player.x, player.y, player.size);
+    ellipse(stranger.x, stranger.y, stranger.size)
+
     pop();
 }   
 
@@ -135,7 +148,7 @@ function checkOverlap(){
         synth.play(randomNote, 1, 0, 1)
         console.log(randomNote)
     }
-    else if (!d < player.size/2 + stranger.size/2){
+    else if (d > player.size/2 + stranger.size/2){
         isOverlapping = false;
     }
 }
