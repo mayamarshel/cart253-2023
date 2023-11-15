@@ -9,7 +9,7 @@ class Stranger {
     
       }
 
-      display(x, y) {
+      display(stranger, x, y) {
         noStroke()
         ellipse(this.x, this.y, this.size);
 

@@ -13,10 +13,12 @@ let player = {
     size: 40
 }
 
+
 let strangers = []
 let totalStrangers = 5
 
 let isOverlapping = false
+
 
 function preload() {
     //preload heaven sound
@@ -39,8 +41,6 @@ function setup() {
         let y = random(0, height); 
         
         let stranger = new Stranger(x, y);
-        
-        
 
 
         strangers.push(stranger);
@@ -61,6 +61,7 @@ function draw() {
     checkOverlap();
 
     
+    
         
 
     
@@ -73,27 +74,24 @@ function draw() {
 function playSong() {
     if (interval === undefined) {
         
-        interval = setInterval(playNextNote, 500)}
-        else{
+        interval = setInterval(playRandomNote, 500)}
+        else {
             clearInterval(interval)
             interval = undefined;
         }
     }
   
-    function playNextNote() {
-        let note = notes[currentNote];
-        synth.play(note, 0.2, 0, 0.4);
-        currentNote = currentNote + 1;
-        if (currentNote === notes.length) {
-          currentNote = 0;
-        }
+    function playRandomNote() {
+        let note = random(notes);
+        // Play it
+        synth.play(note, 1, 0, 1);
       }
+      
 
 
 //STATES
 
 function finalScreen(){
-    state = 'finalScreen';
     push();
     textSize(45);
     fill(20, 0, 170);
@@ -106,7 +104,6 @@ function finalScreen(){
 }   
   
 function start(){
-    state = 'start';
     push();
     textSize(45);
     fill(20, 0, 170);
@@ -114,7 +111,10 @@ function start(){
     text(`start`, width/2, height/2);
 
     ellipse(player.x, player.y, player.size);
-    ellipse(stranger.x, stranger.y, stranger.size)
+    for (let i = 0; i < totalStrangers; i++) {
+        let stranger = strangers[i];
+        stranger.display(stranger)
+      }
 
     pop();
 }   
@@ -140,17 +140,19 @@ function keyPressed() {
 
 
 function checkOverlap(){
-    let d = dist(player.x, player.y, stranger.x, stranger.y);
-    if (d < player.size/2 + stranger.size/2 && isOverlapping === false){
+for (let i = 0; i < totalStrangers; i++) {  
+    let d = dist(player.x, player.y, strangers[i].x, strangers[i].y);
+    if (d < player.size/2 + strangers[i].size/2 && isOverlapping === false){
         isOverlapping = true;
         //synth.play(note, velocity, seconds from now, duration)
         let randomNote = random(notes)
         synth.play(randomNote, 1, 0, 1)
         console.log(randomNote)
     }
-    else if (d > player.size/2 + stranger.size/2){
+    else if (d > player.size/2 + strangers[i].size/2){
         isOverlapping = false;
     }
+}
 }
 
 
