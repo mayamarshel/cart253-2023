@@ -19,6 +19,9 @@ let state = 'start'
 
 let strangersMet = []
 
+  //stops strangers from spawning past doorway
+let doorwayLimit = 450
+
 function setup() {
   createCanvas(600, 600);
   userStartAudio();
@@ -111,6 +114,13 @@ function gameScreen() {
     textAlign(CENTER, CENTER);
     text(`game screen`, width/2, height/2);
     pop();
+
+    push()
+    textSize(20);
+    fill(20, 0, 170);
+    textAlign(CENTER, CENTER);
+    text(`go past finish line to end game`, 170, 500);
+    pop();
         //draws finish line
     drawLine();
         //if player reaches finish line set state to final screen 
@@ -165,7 +175,7 @@ function createStranger(x, y) {
   function createStrangArray() {
       //fills stranger array with stranger objects with accompanying random xy values up to amount of stranger total 
     for (let i = 0; i < 4; i++) {
-        strangers[i] = createStranger(random(0,width),random(0,height));
+        strangers[i] = createStranger(random(0,doorwayLimit),random(0,height));
       }
     
       for (let i = 0; i < strangerTotal; i++) {
