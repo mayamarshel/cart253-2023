@@ -135,7 +135,6 @@ function start(){
 }   
 
 function gameScreen() {
-    state = 'gameScreen'
     for (let i = 0; i < totalCircles; i++) {
 
         let stranger = circles[i];
