@@ -27,13 +27,17 @@ function setup() {
 
   synth = new p5.PolySynth();
 
+  for (let i = 0; i < 4; i++) {
+    strangers[i] = createStranger(random(0,width),random(0,height));
+  }
+
   for (let i = 0; i < strangerTotal; i++) {
-   // let x = random(1, 600)
-   // let y = random(1, 600)
     let stranger = strangers[i]
     strangers.push(stranger)
     console.log(strangers)
   }
+
+  
 
   
 }
@@ -44,6 +48,7 @@ function draw() {
 
   playerMove();
   screenChanges();
+
 
   
 
@@ -121,6 +126,11 @@ function gameScreen() {
         state = 'finalScreen'
       }
     
+    for (let i = 0; i < strangerTotal; i++) {
+        let stranger = strangers[i];
+        displayStranger(stranger)
+    }
+    
 }
 
 function drawLine(){
@@ -135,9 +145,23 @@ function playerMove() {
     player.y = mouseY
 }
 
-function displayStranger(x, y) {
+function displayStranger(stranger) {
     push();
-    fill(140, 0, 0);
-    ellipse(x, y, stranger.size);
+    fill(200, 100, 100);
+    noStroke();
+    ellipse(stranger.x, stranger.y, stranger.size);
+    pop();
 }
+
+function createStranger(x, y) {
+    let stranger = {
+      x: x,
+      y: y,
+      size: 40,
+      vx: 0,
+      vy: 0,
+      speed: 2
+    };
+    return stranger;
+  }
 
