@@ -6,6 +6,15 @@ let player = {
     size: 40
 }
 
+let stranger = {
+    x: 0,
+    y: 0, 
+    size: 40
+}
+
+let strangers = []
+let strangerTotal = 5
+
 let synth;
 let notes = [`F4`, `G4`, `Ab4`, `Bb4`, `C4`, `Db4`, `Eb4`, `F5`];
 let interval;
@@ -18,26 +27,23 @@ function setup() {
 
   synth = new p5.PolySynth();
 
+  for (let i = 0; i < strangerTotal; i++) {
+   // let x = random(1, 600)
+   // let y = random(1, 600)
+    let stranger = strangers[i]
+    strangers.push(stranger)
+    console.log(strangers)
+  }
+
   
 }
 
 
 function draw() {
   background(0);
+
+  playerMove();
   screenChanges();
-
-  
-    player.x = mouseX
-    player.y = mouseY
-  
-  
-
-  
-
-  
-  
-
-  
 
   
 
@@ -123,3 +129,15 @@ function drawLine(){
     line(500, 0, 500, 200)
     line(500, 400, 500, 600)
 }
+
+function playerMove() {
+    player.x = mouseX
+    player.y = mouseY
+}
+
+function displayStranger(x, y) {
+    push();
+    fill(140, 0, 0);
+    ellipse(x, y, stranger.size);
+}
+
