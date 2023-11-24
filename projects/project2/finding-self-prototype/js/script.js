@@ -136,9 +136,8 @@ function start(){
 
 function gameScreen() {
     for (let i = 0; i < totalCircles; i++) {
-
+        
         let stranger = circles[i];
-    
         stranger.display();
         
         let d = dist(self.x, self.y, stranger.x, stranger.y);
