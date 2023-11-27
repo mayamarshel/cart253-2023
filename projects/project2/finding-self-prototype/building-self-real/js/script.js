@@ -9,6 +9,8 @@ let strangersMet = []
 
 let state = 'start'
 
+let selfRadius = 10
+
 function setup() {
   createCanvas(600, 600);
   
@@ -19,7 +21,7 @@ function setup() {
 }
 
 function draw() {
-  background(0)
+  //background(0)
 
   screenChanges()
   checkDistance()
@@ -76,13 +78,13 @@ function fillSelfArray() {
 }
 
 function checkDistance() {
-// NEED TO find a way to makes the selves and strangers here the particular one that the self is touching 
-  let d = dist(self.x, self.y, stranger.x, stranger.y);
-        if (d < self.size / 2 + stranger.size / 2 && !strangersMet.includes(circles.indexOf(stranger))) {
-            for (let i = 0; i < 1; i++) {
-                strangersMet.push(strangers.indexOf(stranger));
-                console.log(strangersMet)
-    
+for (let i = 0; i < strangers.length; i++) {
+  let stranger = strangers[i]
+    let d = dist(mouseX + 25, mouseY + 25, stranger.x, stranger.y);
+        if (d < 20 / 2 + stranger.size / 2 && !strangersMet.includes(strangers.indexOf(stranger))) {
+//ADD CODE to make self size into a running number that can be calculated by a function SELFSIZE FUNCTION
+            strangersMet.push(strangers.indexOf(stranger));
+            console.log(strangersMet)
         }
     }
   }
@@ -120,3 +122,11 @@ if (state === 'start') {
 console.log(state)
 }
 
+
+//figure out how to display new selves in order and consistantly draw them over the background
+function newSelf() {
+  push()
+  fill(stranger.r, stranger.g, stranger.b)
+  ellipse(100, 100, 50)
+  pop()
+}

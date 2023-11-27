@@ -6,7 +6,7 @@ class Self {
         this.size = 10
     }
 
-display(x, y) {
+display() {
     push();
     fill(255)
     ellipse(this.x, this.y, this.size)
