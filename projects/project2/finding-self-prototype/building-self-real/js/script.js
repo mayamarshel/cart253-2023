@@ -11,6 +11,10 @@ let state = 'start'
 
 let selfRadius = 10
 
+let r = []
+let g = []
+let b = []
+
 function setup() {
   createCanvas(600, 600);
   
@@ -21,11 +25,11 @@ function setup() {
 }
 
 function draw() {
-  //background(0)
+  background(0)
 
   screenChanges()
   checkDistance()
-  
+  drawAllSelf()
 }
 
 
@@ -85,6 +89,15 @@ for (let i = 0; i < strangers.length; i++) {
 //ADD CODE to make self size into a running number that can be calculated by a function SELFSIZE FUNCTION
             strangersMet.push(strangers.indexOf(stranger));
             console.log(strangersMet)
+
+              //addes the color info for the specific stranger circle to the specified color arrays 
+            r.unshift(stranger.r)
+            console.log(r)
+            g.unshift(stranger.g)
+            console.log(g)
+            b.unshift(stranger.b)
+            console.log(b)
+            
         }
     }
   }
@@ -123,10 +136,15 @@ console.log(state)
 }
 
 
-//figure out how to display new selves in order and consistantly draw them over the background
-function newSelf() {
-  push()
-  fill(stranger.r, stranger.g, stranger.b)
-  ellipse(100, 100, 50)
-  pop()
+//how to make them appear in the right order???
+function drawAllSelf() {
+  for (let i = 0; i < strangersMet.length; i++){
+    push()
+    let indexValue = 0
+    fill(r[indexValue], g[indexValue], b[indexValue])
+    ellipse(mouseX, mouseY, 50 + (i * 10))
+    indexValue = indexValue + 1
+    pop()
+  }
+  
 }

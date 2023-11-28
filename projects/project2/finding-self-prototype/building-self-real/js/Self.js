@@ -1,9 +1,12 @@
 class Self {
     
-    constructor(x, y) {
+    constructor(x, y, r, g, b) {
         this.x = x
         this.y = y
         this.size = 10
+        this.r = r
+        this.g = g
+        this.b = b
     }
 
 display() {
