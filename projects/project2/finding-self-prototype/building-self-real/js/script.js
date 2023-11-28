@@ -14,6 +14,7 @@ let selfRadius = 10
 let r = []
 let g = []
 let b = []
+let rgbValues = []
 
 function setup() {
   createCanvas(600, 600);
@@ -27,8 +28,11 @@ function setup() {
 function draw() {
   background(0)
 
+  moveStrange()
+
   screenChanges()
   checkDistance()
+  storeAllSelf()
   drawAllSelf()
 }
 
@@ -66,7 +70,6 @@ for (let i = 0; i < totalStrangers; i++) {
   
   
   let stranger = new Stranger(x, y, vx, vy, r, g, b);
-  console.log(new Stranger(x, y, r, g, b))
 
   strangers.push(stranger); 
 }
@@ -85,7 +88,7 @@ function checkDistance() {
 for (let i = 0; i < strangers.length; i++) {
   let stranger = strangers[i]
     let d = dist(mouseX + 25, mouseY + 25, stranger.x, stranger.y);
-        if (d < 20 / 2 + stranger.size / 2 && !strangersMet.includes(strangers.indexOf(stranger))) {
+        if (d < 20 / 2 + stranger.size / 2 && !strangersMet.includes(strangers.indexOf(stranger)) && state === 'gameScreen') {
 //ADD CODE to make self size into a running number that can be calculated by a function SELFSIZE FUNCTION
             strangersMet.push(strangers.indexOf(stranger));
             console.log(strangersMet)
@@ -104,17 +107,13 @@ for (let i = 0; i < strangers.length; i++) {
 
 
 
-
-
-
-
 //SCREENS
 function start() {
   push();
   textSize(45);
-  fill(20, 0, 170);
+  fill(240, 0, 70);
   textAlign(LEFT, CENTER);
-  text('start', width/2, height/2);
+  text('building self', width/2, height/2);
 }
 
 
@@ -137,14 +136,31 @@ console.log(state)
 
 
 //how to make them appear in the right order???
+function storeAllSelf() {
+for (let i = 0; i < strangersMet.length; i++) {
+  rgbValues[i] = Array(r[i], g[i], b[i])
+  }
+}
+
 function drawAllSelf() {
-  for (let i = 0; i < strangersMet.length; i++){
+  for (let i = rgbValues.length - 1; i >= 0; i--) {
     push()
-    let indexValue = 0
-    fill(r[indexValue], g[indexValue], b[indexValue])
-    ellipse(mouseX, mouseY, 50 + (i * 10))
-    indexValue = indexValue + 1
+    fill(rgbValues[i][0], rgbValues[i][1], rgbValues[i][2])
+    ellipse(mouseX, mouseY, 10 + (i * 10))
     pop()
   }
-  
 }
+
+
+function moveStrange() {
+  for (let i = 0; i < strangers.length; i++) {
+    let stranger = strangers[i]
+    //let vx = random(.2, 5)
+    //let vy = random(.2, 5)
+    console.log('stranger vx' + stranger.vx)
+    stranger.x = stranger.x + stranger.vx
+    stranger.x = stranger.y + stranger.vy
+  }
+}
+
+

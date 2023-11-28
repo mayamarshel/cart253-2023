@@ -4,10 +4,11 @@ class Self {
         this.x = x
         this.y = y
         this.size = 10
-        this.r = r
-        this.g = g
-        this.b = b
+        this.r = []
+        this.g = []
+        this.b = []
     }
+
 
 display() {
     push();
@@ -16,4 +17,6 @@ display() {
     pop();
     
 }
+
+
 }
