@@ -9,20 +9,17 @@ let strangersMet = []
 
 let state = 'start'
 
-let selfRadius = 10
-
 let r = []
 let g = []
 let b = []
 let rgbValues = []
 
+
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(800, 700);
   
   fillStrangeArray()
   fillSelfArray()
-  console.log(new Self)
-
 }
 
 function draw() {
@@ -34,6 +31,7 @@ function draw() {
   checkDistance()
   storeAllSelf()
   drawAllSelf()
+
 }
 
 
@@ -51,6 +49,7 @@ function gameScreen() {
     self.y = mouseY
     self.display();
   }
+
 }
 
 
@@ -67,7 +66,6 @@ for (let i = 0; i < totalStrangers; i++) {
   let r = random(0, 255)
   let g = random(0, 255)
   let b = random(0, 255)
-  
   
   let stranger = new Stranger(x, y, vx, vy, r, g, b);
 
@@ -89,7 +87,6 @@ for (let i = 0; i < strangers.length; i++) {
   let stranger = strangers[i]
     let d = dist(mouseX + 25, mouseY + 25, stranger.x, stranger.y);
         if (d < 20 / 2 + stranger.size / 2 && !strangersMet.includes(strangers.indexOf(stranger)) && state === 'gameScreen') {
-//ADD CODE to make self size into a running number that can be calculated by a function SELFSIZE FUNCTION
             strangersMet.push(strangers.indexOf(stranger));
             console.log(strangersMet)
 
@@ -100,6 +97,12 @@ for (let i = 0; i < strangers.length; i++) {
             console.log(g)
             b.unshift(stranger.b)
             console.log(b)
+
+              //set stranger color to a random value after self has collided with them 
+            let randomNum = random(0, 3)
+            stranger.r = stranger.r/randomNum
+            stranger.g = stranger.g/randomNum
+            stranger.b = stranger.b/randomNum
             
         }
     }
@@ -110,10 +113,26 @@ for (let i = 0; i < strangers.length; i++) {
 //SCREENS
 function start() {
   push();
-  textSize(45);
+  textSize(60);
   fill(240, 0, 70);
   textAlign(LEFT, CENTER);
   text('building self', width/2, height/2);
+  pop()
+
+  push();
+  textSize(25);
+  fill(240, 0, 70);
+  textAlign(LEFT, CENTER);
+  text('press SHIFT to begin', width/2, 600);
+  pop()
+}
+
+function finishScreen() {
+  push();
+  textSize(45);
+  fill(240, 0, 70);
+  textAlign(CENTER, CENTER);
+  text('look at what you have made', width/2, height/2);
 }
 
 
@@ -124,14 +143,9 @@ if (state === 'start') {
 else if (state === 'gameScreen') {
     gameScreen();
 }
+else if (state === 'finishScreen') {
+    finishScreen();
 }
-
-
-function keyPressed() {
-if (state === 'start') {
-    state = 'gameScreen'
-}
-console.log(state)
 }
 
 
@@ -151,16 +165,21 @@ function drawAllSelf() {
   }
 }
 
-
+// figure out how to move strangers
 function moveStrange() {
   for (let i = 0; i < strangers.length; i++) {
     let stranger = strangers[i]
-    //let vx = random(.2, 5)
-    //let vy = random(.2, 5)
-    console.log('stranger vx' + stranger.vx)
-    stranger.x = stranger.x + stranger.vx
-    stranger.x = stranger.y + stranger.vy
+    stranger.move()
   }
 }
 
-
+function keyPressed() {
+    //finished game is SPACE BAR is pressed
+  if (keyCode === 32) {
+    state = 'finishScreen'
+  }
+    //starts game if SHIFT is pressed
+  else if (keyCode === 16) {
+    state = 'gameScreen'
+}
+}
