@@ -16,9 +16,14 @@ let rgbValues = []
 
 let synth;
 let notes = ['F4', 'G4', 'A4', 'Bb4', 'C4', 'D4', 'E4'];
-let interval = undefined
-let currentNote = 0
+let interval;
 
+let titleImage;
+
+function preload() {
+  titleImage = loadImage("assets/images/buildingself-titlescreen.jpg");
+
+}
 
 function setup() {
   createCanvas(800, 700);
@@ -40,8 +45,6 @@ function draw() {
   storeAllSelf()
   drawAllSelf()
 }
-
-
 
 function gameScreen() {
     //pulls each stranger from the array and displays them using the stranger display class function
@@ -158,6 +161,7 @@ function generateNewStranger() {
   }
 }
 
+
 //MUSIC 
 function playRandomNote() {
   let randomNote = random(notes)
@@ -182,47 +186,21 @@ function playSong() {
 }
 
 
-function screenChanges() {
-  if (state === 'start') {
-      start();
-  }
-  else if (state === 'finalScreen') {
-      finalScreen();
-  }
-  else if (state === 'gameScreen'){
-      gameScreen();
-  }
-}
-
-function keyPressed() {
-  if (state === 'start') {
-      state = 'gameScreen'
-  }
-  else if (state === 'gameScreen') {
-      state = 'finalScreen'
-  }
-
-  console.log(state)
-}
-
-
 
 
 //SCREENS
 function start() {
-  push();
-  textSize(60);
-  fill(240, 0, 70);
-  textAlign(LEFT, CENTER);
-  text('building self', width/2, height/2);
-  pop()
+  image(titleImage, 0, 0);
+}
 
+function quoteScreen() {
   push();
   textSize(25);
-  fill(240, 0, 70);
-  textAlign(LEFT, CENTER);
-  text('press SHIFT to begin', width/2, 600);
-  pop()
+  fill(255);
+  textAlign(CENTER, CENTER);
+  text('"You are going to meet people who\nwill change your life forever.\n Some are there for years, a few\n for a lifetime and many for what\n seems like just a flash. But\n everyone changes you in a way. They\n are all pieces of who you are and\n who you will be"\n\n -Evan Sanders', width/2, height/2);
+
+  pop();
 }
 
 function finishScreen() {
@@ -231,7 +209,7 @@ function finishScreen() {
   fill(240, 0, 70);
   textAlign(CENTER, CENTER);
   text('look at what you have made', width/2, height/2);
-  playSong();
+
   pop();
 }
 
@@ -246,15 +224,19 @@ else if (state === 'gameScreen') {
 else if (state === 'finishScreen') {
     finishScreen();
 }
+else if (state === 'quoteScreen') {
+  quoteScreen();
+}
 }
 
 function keyPressed() {
   //finished game is SPACE BAR is pressed
 if (keyCode === 32) {
   state = 'finishScreen'
+  playSong()
 }
-  //starts game if SHIFT is pressed
+  //moves to quote screen if SHIFT is pressed
 else if (keyCode === 16) {
-  state = 'gameScreen'
+  state = 'quoteScreen'
 }
 }
