@@ -11,6 +11,7 @@ class Stranger {
         this.b = b;
         this.jitteriness = 0.1;
         this.speed = 1.5;
+        this.chance = 0.1
       }
     
 
@@ -24,7 +25,7 @@ class Stranger {
 
     move() {
       //changed the velocity with a 1 in 10 change 
-      let r = random(0, 1);
+      let r = random(0, 4);
       if (r < this.jitteriness) {
         this.vx = random(-this.speed, this.speed);
         this.vy = random(-this.speed, this.speed);
@@ -33,10 +34,5 @@ class Stranger {
       //add random velocity to movement patterns 
       this.x = this.x + this.vx;
       this.y = this.y + this.vy;
-  
-      //keeps bee inside screen 
-      this.x = constrain(this.x, 0, width);
-      this.y = constrain(this.y, 0, height);
-    }
-  
+    }  
 }
