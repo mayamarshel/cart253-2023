@@ -11,7 +11,9 @@ class Stranger {
         this.b = b;
         this.jitteriness = 0.1;
         this.speed = 1.5;
-        this.chance = 0.1
+        this.chance = 0.1;
+        this.fastest = 5;
+        this.slowest = 2;
       }
     
 
