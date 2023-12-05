@@ -6,6 +6,12 @@ let strangers = []
 let selves = []
 let sizeIncrease = 10
 
+let doorOpen = {
+  left: 400,
+  right: 400,
+  doorEntrance: 0
+}
+
 let totalStrangers = 10
 let strangersMet = []
 
@@ -101,6 +107,14 @@ for (let i = 0; i < strangers.length; i++) {
             stranger.b = stranger.b/randomNum
             
             playRandomNote();
+
+              //Opens doors as you meet more people
+            doorOpen.left = doorOpen.left - 15
+            doorOpen.right = doorOpen.right + 15
+
+              //changes stranger size when you meet them
+            stranger.shrinkOrGrow()
+
         }
     }
   }
@@ -117,7 +131,7 @@ function drawAllSelf() {
   for (let i = rgbValues.length - 1; i >= 0; i--) {
       //code for calling a loop backwards was given by Pippin
     push()
-      //accesses rgb informaiton from values array to put into specific fill 
+      //accesses rgb information from values array to put into specific fill 
     fill(rgbValues[i][0], rgbValues[i][1], rgbValues[i][2])
       //Makes circle a little bigger each time loop is called
     ellipse(mouseX, mouseY, 10 + (i * sizeIncrease))
@@ -222,6 +236,7 @@ function quoteScreen() {
   }
 }
 
+
 function gameScreen() {
   //pulls each stranger from the array and displays them using the stranger display class function
 for (let i = 0; i < strangers.length; i++) {
@@ -239,15 +254,30 @@ generateNewStranger()
 
 //ADD CODE to create doorway
 push()
-stroke(100, 100, 50)
-line()
+stroke(150, 100, 80)
+strokeWeight(7)
+line(100, 0, doorOpen.left, 70)
+pop()
+
+push()
+stroke(150, 100, 80)
+strokeWeight(7)
+line(700, 0, doorOpen.right, 70)
+pop()
+
+  //ends game if player goes through doorway
+if (mouseY <= doorOpen.doorEntrance) {
+  state = 'finishScreen'
+  playSong();
+};
 
 }
+
 
 function finishScreen() {
   push();
   textSize(45);
-  fill(240, 0, 70);
+  fill(255);
   textAlign(CENTER, CENTER);
   text('look at you! how beautiful ', width/2, height/2);
   pop();
@@ -270,13 +300,8 @@ else if (state === 'quoteScreen') {
 }
 
 function keyPressed() {
-  //finished game is SPACE BAR is pressed
-if (keyCode === 32 && state === 'gameScreen') {
-  state = 'finishScreen'
-  playSong()
-}
   //moves to quote screen if SHIFT is pressed
-else if (keyCode === 16 && state === 'start') {
+if (keyCode === 16 && state === 'start') {
   state = 'quoteScreen'
 }
 }

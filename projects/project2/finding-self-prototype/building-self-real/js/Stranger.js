@@ -14,9 +14,12 @@ class Stranger {
         this.chance = 0.1;
         this.fastest = 5;
         this.slowest = 2;
-      }
+        this.shrinkValues = [0.5, -2, 1, -1, 0.75]
+        }
+      
     
-
+    
+      //draws the actual stranger
     display(){
             push();
             fill(this.r, this.g, this.b)
@@ -37,4 +40,11 @@ class Stranger {
       this.x = this.x + this.vx;
       this.y = this.y + this.vy;
     }  
+
+    shrinkOrGrow() {
+      for(let i = 0; i < strangers.length; i++) {
+        let shrinkRate = random(this.shrinkValues)
+        this.size = this.size - shrinkRate
+      }
+    }
 }

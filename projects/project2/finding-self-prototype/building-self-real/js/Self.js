@@ -7,9 +7,10 @@ class Self {
         this.r = []
         this.g = []
         this.b = []
+        this.sizeIncrease = 10;
     }
 
-
+    //draws the actual self
 display() {
     push();
     fill(255)
